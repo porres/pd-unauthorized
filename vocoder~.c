@@ -11,8 +11,8 @@
  */
 
 #include "m_pd.h"
-#include "filters.h"
-#include "lpc.h"
+#include "vocoder~/filters.h"
+#include "vocoder~/lpc.h"
 
 #define OUTPUT_DELAY 50
 

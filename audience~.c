@@ -513,7 +513,7 @@ static void audience_dialog(t_audience_tilde *x, t_symbol *s, int argc, t_atom *
         x->x_inputs_y = (t_int *) getbytes( x->x_nbinputs*sizeof(t_int) );
         if ( !x->x_inputs || !x->x_inputs_x || !x->x_inputs_y )
         {
-            error( "audience~ : fatal : could not create new object" );
+            pd_error(x, "audience~ : fatal : could not create new object" );
             return;
         }
         for ( bi=0; bi<x->x_nbinputs; bi++ )
@@ -937,7 +937,7 @@ static t_int *audience_perform(t_int *w)
                     }
                     else
                     {
-                        error( "audience~ : delay : %d : wrong readpos !!! : %d >= %d or < 0", (int)delay, (int)readpos, (int)x->x_audiobuffersize );
+                        pd_error(x, "audience~ : delay : %d : wrong readpos !!! : %d >= %d or < 0", (int)delay, (int)readpos, (int)x->x_audiobuffersize );
                     }
                     op++;
                 }

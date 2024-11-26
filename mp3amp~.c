@@ -431,7 +431,7 @@ static void mp3amp_recv(t_mp3amp *x)
 
         if ( ret == 0 && ( x->x_inbuffersize-x->x_inwriteposition != 0 ) )
         {
-            error("mp3amp~: stream lost...");
+            pd_error(x, "mp3amp~: stream lost...");
             mp3amp_disconnect(x);
         }
         else
@@ -617,14 +617,14 @@ static void *mp3amp_do_connect(void *tdata )
 
     if (x->x_fd >= 0)
     {
-        error("mp3amp~: already connected");
+        pd_error(x, "mp3amp~: already connected");
         return NULL;
     }
 
     sockfd = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
     if (sockfd < 0)
     {
-        error("mp3amp~: internal error while attempting to open socket");
+        pd_error(x, "mp3amp~: internal error while attempting to open socket");
         return NULL;
     }
 
@@ -646,7 +646,7 @@ static void *mp3amp_do_connect(void *tdata )
     post("mp3amp~: connecting to http:/%s:%d/%s", x->x_hostname, x->x_port, x->x_mountpoint );
     if (connect(sockfd, (struct sockaddr *) &server, sizeof (server)) < 0)
     {
-        error("mp3amp~: connection failed!\n");
+        pd_error(x, "mp3amp~: connection failed!\n");
         sys_closesocket(sockfd);
         return NULL;
     }
@@ -661,7 +661,7 @@ static void *mp3amp_do_connect(void *tdata )
     ret = select(sockfd + 1, &fdset, NULL, NULL, &tv);
     if(ret != 0)
     {
-        error("mp3amp~: can not read from socket");
+        pd_error(x, "mp3amp~: can not read from socket");
         sys_closesocket(sockfd);
         return NULL;
     }
@@ -697,7 +697,7 @@ static void *mp3amp_do_connect(void *tdata )
     {
         if( ( ret = recv(sockfd, request+offset, STRBUF_SIZE, MSG_NOSIGNAL) ) <0)
         {
-            error("mp3amp~: no response from server");
+            pd_error(x, "mp3amp~: no response from server");
 #ifndef _MSC_VER
             perror( "recv" );
 #endif
@@ -747,7 +747,7 @@ static void *mp3amp_do_connect(void *tdata )
         }
         if( !(sptr = strstr(request, "200")) && !relocate )
         {
-            error("mp3amp~: cannot connect to the (default) stream");
+            pd_error(x, "mp3amp~: cannot connect to the (default) stream");
             return NULL;
         }
 
@@ -1029,7 +1029,7 @@ static void *mp3amp_do_connect(void *tdata )
     }
     if (relocate)
     {
-        error("mp3amp~: too many HTTP relocations");
+        pd_error(x, "mp3amp~: too many HTTP relocations");
         return NULL;
     }
     post("mp3amp~: connected to http://%s:%d/%s", hp->h_name, portno, x->x_mountpoint);

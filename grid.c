@@ -17,7 +17,7 @@
 #include "g_grid.h"
 
 /* For the scalehandle... */
-#include "g_all_guis.h"
+#include "g_old_all_guis.h"
 
 #ifdef _WIN32
 #include <io.h>
@@ -66,6 +66,7 @@ static char   *grid_version = "grid: version 0.9, written by Yves Degoyon (ydego
                          post(a,b,c,d,e,f,g,h,i );\
                          sys_vgui(a,b,c,d,e,f,g,h,i)
 
+
 /* drawing functions */
 static void grid_draw_update(t_grid *x, t_glist *glist)
 {
@@ -93,7 +94,7 @@ static void grid_draw_update(t_grid *x, t_glist *glist)
         //               "-fill #FF0000 -tags %lxPOINT\n",
         //    canvas, xpoint, ypoint, xpoint+pointsize, ypoint+pointsize, x);
         /* move the point */
-        gui_vmess("gui_grid_point", "xxii",
+        pdgui_vmess("gui_grid_point", "xxii",
             canvas,
             x,
             xpoint - text_xpix(&x->x_obj, glist),
@@ -156,7 +157,7 @@ static void grid_draw_configure(t_grid *x, t_glist *glist)
     //}
 
     // gui_gobj_new, "xx type text_xpix text_ypix istoplevel"
-    gui_vmess("gui_configure_grid", "xxiisiii",
+    pdgui_vmess("gui_configure_grid", "xxiisiii",
         canvas,
         x,
         x->x_width,
@@ -173,7 +174,7 @@ static void grid_draw_configure(t_grid *x, t_glist *glist)
 static void grid_draw_new(t_grid *x, t_glist *glist)
 {
     t_canvas *canvas=glist_getcanvas(glist);
-    gui_vmess("gui_grid_new", "xxiii",
+    pdgui_vmess("gui_grid_new", "xxiii",
         canvas,
         x,
         text_xpix(&x->x_obj, glist),
@@ -237,7 +238,7 @@ static void grid_draw_erase(t_grid* x, t_glist* glist)
 {
     t_canvas *canvas = glist_getcanvas(glist);
 
-    gui_vmess("gui_gobj_erase", "xx",
+    pdgui_vmess("gui_gobj_erase", "xx",
         canvas, x);
     //int i;
 
@@ -272,7 +273,7 @@ static void grid_draw_select(t_grid* x,t_glist* glist)
         //GRID_SYS_VGUI3(".x%lx.c itemconfigure %lxGRID "
         //               "-outline #0000FF\n",
         //    canvas, x);
-        gui_vmess("gui_gobj_select", "xx", canvas, x);
+        pdgui_vmess("gui_gobj_select", "xx", canvas, x);
     }
     else
     {
@@ -280,7 +281,7 @@ static void grid_draw_select(t_grid* x,t_glist* glist)
         //GRID_SYS_VGUI3(".x%lx.c itemconfigure %lxGRID "
         //               "-outline #000000\n",
         //    canvas, x);
-        gui_vmess("gui_gobj_deselect", "xx", canvas, x);
+        pdgui_vmess("gui_gobj_deselect", "xx", canvas, x);
     }
 }
 
@@ -452,7 +453,7 @@ static void grid_displace(t_gobj *z, t_glist *glist, int dx, int dy)
     x->y_current += dy;
     if (xold != text_xpix(&x->x_obj, glist) || yold != text_ypix(&x->x_obj, glist))
     {
-        gui_vmess("gui_text_displace", "xxii",
+        pdgui_vmess("gui_text_displace", "xxii",
             glist_getcanvas(glist),
             x,
             dx,

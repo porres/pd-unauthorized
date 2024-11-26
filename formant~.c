@@ -87,7 +87,7 @@ static t_int formant_gendata(t_formant *x)
 
     if ( x->x_size <= 0 || x->x_central_freq <= 0 || x->x_filter_width <= 0 || x->x_skirt_width <= 0 )
     {
-        error( "formant~ : error generating data : negative or null parameter(s)" );
+        pd_error(x, "formant~ : error generating data : negative or null parameter(s)" );
         return -1;
     }
 
@@ -229,7 +229,7 @@ static void *formant_new(t_floatarg fsize, t_floatarg ffreq, t_floatarg ffwidth,
 
     if ( fsize <= 0 || ffreq <= 0 || ffwidth <= 0 || fswidth <= 0 )
     {
-        error( "formant~ : warning: missing or negative creation arguments" );
+        pd_error(x, "formant~ : warning: missing or negative creation arguments" );
         if (fsize <= 0)
         {
             post ("first argument defaulting to 1");

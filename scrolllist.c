@@ -844,7 +844,7 @@ static t_scrolllist *scrolllist_new(t_symbol *s, int argc, t_atom *argv )
     {
         if ( argv[0].a_type != A_FLOAT )
         {
-            error( "scrolllist : wrong argument (capacity : 1)" );
+            pd_error(x, "scrolllist : wrong argument (capacity : 1)" );
             return NULL;
         }
         x->x_capacity = (int)argv[0].a_w.w_float;
@@ -853,13 +853,13 @@ static t_scrolllist *scrolllist_new(t_symbol *s, int argc, t_atom *argv )
     {
         if ( argv[1].a_type != A_FLOAT )
         {
-            error( "scrolllist : wrong argument (width : 2)" );
+            pd_error(x, "scrolllist : wrong argument (width : 2)" );
             return NULL;
         }
         if ( (int)argv[1].a_w.w_float <= 0 )
         {
-            error( "scrolllist : wrong width (%d)", (int)argv[1].a_w.w_float );
-            error( "scrolllist : usage : scrolllist <capacity> <width> <height>" );
+            pd_error(x, "scrolllist : wrong width (%d)", (int)argv[1].a_w.w_float );
+            pd_error(x, "scrolllist : usage : scrolllist <capacity> <width> <height>" );
             return NULL;
         }
         x->x_width = (int)argv[1].a_w.w_float;
@@ -868,13 +868,13 @@ static t_scrolllist *scrolllist_new(t_symbol *s, int argc, t_atom *argv )
     {
         if ( argv[2].a_type != A_FLOAT )
         {
-            error( "scrolllist : wrong argument (height : 3)" );
+            pd_error(x, "scrolllist : wrong argument (height : 3)" );
             return NULL;
         }
         if ( (int)argv[2].a_w.w_float <= 0 )
         {
-            error( "scrolllist : wrong height (%d)", (int)argv[2].a_w.w_float );
-            error( "scrolllist : usage : scrolllist <capacity> <width> <height>" );
+            pd_error(x, "scrolllist : wrong height (%d)", (int)argv[2].a_w.w_float );
+            pd_error(x, "scrolllist : usage : scrolllist <capacity> <width> <height>" );
             return NULL;
         }
         x->x_height = (int)argv[2].a_w.w_float;
@@ -884,15 +884,15 @@ static t_scrolllist *scrolllist_new(t_symbol *s, int argc, t_atom *argv )
         if ( argv[3].a_type != A_SYMBOL ||
                 argv[5].a_type != A_SYMBOL )
         {
-            error( "scrolllist : wrong arguments (font : 4,6)" );
-            error( "argument types : %d %d", argv[3].a_type, argv[5].a_type );
+            pd_error(x, "scrolllist : wrong arguments (font : 4,6)" );
+            pd_error(x, "argument types : %d %d", argv[3].a_type, argv[5].a_type );
             return NULL;
         }
         if ( argv[4].a_type != A_SYMBOL &&
                 argv[4].a_type != A_FLOAT )
         {
-            error( "scrolllist : wrong arguments (font size : 5)" );
-            error( "argument types : %d", argv[4].a_type );
+            pd_error(x, "scrolllist : wrong arguments (font size : 5)" );
+            pd_error(x, "argument types : %d", argv[4].a_type );
             return NULL;
         }
         if ( argv[4].a_type == A_SYMBOL )
@@ -914,7 +914,7 @@ static t_scrolllist *scrolllist_new(t_symbol *s, int argc, t_atom *argv )
     {
         if ( argv[6-argoffset].a_type != A_SYMBOL )
         {
-            error( "scrolllist : wrong arguments (background color : %d)", (int)(7-argoffset) );
+            pd_error(x, "scrolllist : wrong arguments (background color : %d)", (int)(7-argoffset) );
             return NULL;
         }
         strcpy( x->x_bgcolor, argv[6-argoffset].a_w.w_symbol->s_name );
@@ -923,7 +923,7 @@ static t_scrolllist *scrolllist_new(t_symbol *s, int argc, t_atom *argv )
     {
         if ( argv[7-argoffset].a_type != A_SYMBOL )
         {
-            error( "scrolllist : wrong arguments (foreground color : %d)", (int)(8-argoffset) );
+            pd_error(x, "scrolllist : wrong arguments (foreground color : %d)", (int)(8-argoffset) );
             return NULL;
         }
         strcpy( x->x_fgcolor, argv[7-argoffset].a_w.w_symbol->s_name );
@@ -932,7 +932,7 @@ static t_scrolllist *scrolllist_new(t_symbol *s, int argc, t_atom *argv )
     {
         if ( argv[8-argoffset].a_type != A_SYMBOL )
         {
-            error( "scrolllist : wrong arguments (selection color : %d)", (int)(9-argoffset) );
+            pd_error(x, "scrolllist : wrong arguments (selection color : %d)", (int)(9-argoffset) );
             return NULL;
         }
         strcpy( x->x_secolor, argv[8-argoffset].a_w.w_symbol->s_name );

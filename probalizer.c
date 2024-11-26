@@ -512,13 +512,13 @@ static t_probalizer *probalizer_new(t_symbol *s, int argc, t_atom *argv)
     x->x_probs = (t_int*) getbytes( x->x_nvalues*sizeof(t_int) );
     if ( !x->x_probs )
     {
-        error( "probalizer : could not allocate buffer" );
+        pd_error(x, "probalizer : could not allocate buffer" );
         return NULL;
     }
     x->x_ovalues = (t_int*) getbytes( x->x_nvalues*sizeof(t_int) );
     if ( !x->x_ovalues )
     {
-        error( "probalizer : could not allocate buffer" );
+        pd_error(x, "probalizer : could not allocate buffer" );
         return NULL;
     }
     for ( ei=0; ei<x->x_nvalues; ei++ )
@@ -575,14 +575,14 @@ static void probalizer_bang(t_probalizer *x)
 
     if ( nevalues == 0 )
     {
-        error( "probalizer : probabilities are null, sorry" );
+        pd_error(x, "probalizer : probabilities are null, sorry" );
         return;
     }
 
     candidates = ( t_int* ) getbytes( nevalues*sizeof( t_int ) );
     if ( !candidates )
     {
-        error( "probalizer : could not allocate buffer for internal computation" );
+        pd_error(x, "probalizer : could not allocate buffer for internal computation" );
         return;
     }
 
