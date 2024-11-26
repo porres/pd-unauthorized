@@ -4,8 +4,15 @@ with streaming and mp3s.  The home page for the GPL version is here:
 
 http://puredata.info/community/projects/software/unauthorized
 
-This repository was forked by Porres and extracted from the Purr Data repository. 
-It has been adapted to use pdlibbuilder.
+-------------------------------------------------------------------------------------
+
+This repository was forked by Porres and extracted from the Purr Data repository. It has been adapted to use pdlibbuilder and be compiled with the most recent version of Pd Vanilla.
+
+Note from PORRES: "I want to make it very very clear that I am not the author of this code, which is Yves Degoyon. I would also like to thank him for writing the code. I am not stealing this code".
+
+Another note from PORRES: "This is supposed to be the same version as carried by Pd-Extended, and it uses that same old license. The good thing about this license is that if you end up in the top 10 chart of Pop music you can still use this library of externals. The bad thing about this license is that if you use it for military duties and end up building a nuclear bomb that kills us all, well, we're all gonna die, so it's bad (I guess?)"
+
+--------------------------------------------------------------------------------
 
 unauthorized has split into two versions because of a change of
 licensing. This version, maintained in the pure-data SVN, remains GPLv2
