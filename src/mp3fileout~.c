@@ -84,7 +84,7 @@ static struct timeval ztout;
 
 static char   *mp3fileout_version = "mp3fileout~: mp3 file streamer version 0.2, written by ydegoyon@free.fr";
 
-extern void sys_sockerror(char *s);
+// extern void sys_sockerror(char *s);
 
 void mp3fileout_closesocket(int fd)
 {
@@ -435,14 +435,14 @@ static void mp3fileout_connect(t_mp3fileout *x, t_symbol *hostname, t_floatarg f
 
     if (x->x_socket >= 0)
     {
-        error("mp3fileout~: already connected");
+        pd_error(x, "mp3fileout~: already connected");
         return;
     }
 
     sockfd = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
     if (sockfd < 0)
     {
-        error("mp3fileout~: internal error while attempting to open socket");
+        pd_error(x, "mp3fileout~: internal error while attempting to open socket");
         return;
     }
 
@@ -468,7 +468,7 @@ static void mp3fileout_connect(t_mp3fileout *x, t_symbol *hostname, t_floatarg f
     post("mp3fileout~: connecting to port %d", portno);
     if (connect(sockfd, (struct sockaddr *) &csocket, sizeof (csocket)) < 0)
     {
-        error("mp3fileout~: connection failed!\n");
+        pd_error(x, "mp3fileout~: connection failed!\n");
 #ifdef _WIN32
         closesocket(sockfd);
 #else

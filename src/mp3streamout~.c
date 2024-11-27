@@ -127,7 +127,7 @@ static void mp3streamout_encode(t_mp3streamout *x)
     if(x->x_lamechunk < (int)sizeof(x->x_mp3inbuf))
 #endif
     {
-        error("not enough memory!");
+        pd_error(x, "not enough memory!");
         return;
     }
 
@@ -146,7 +146,7 @@ static void mp3streamout_encode(t_mp3streamout *x)
         }
         x->x_start = 1;
     }
-    if((unsigned short)(x->x_outp - x->x_inp) < x->x_lamechunk)error("mp3streamout~: buffers overlap!");
+    if((unsigned short)(x->x_outp - x->x_inp) < x->x_lamechunk)pd_error(x, "mp3streamout~: buffers overlap!");
 
     i = MY_MP3_MALLOC_IN_SIZE - x->x_outp;
 
@@ -186,7 +186,7 @@ static void mp3streamout_encode(t_mp3streamout *x)
     if(x->x_mp3size<0)
     {
         lame_close( x->lgfp );
-        error("mp3streamout~: lame_encode_buffer_interleaved failed (%d)", x->x_mp3size);
+        pd_error(x, "mp3streamout~: lame_encode_buffer_interleaved failed (%d)", x->x_mp3size);
         x->x_lame = -1;
     }
 }
@@ -211,7 +211,7 @@ static void mp3streamout_stream(t_mp3streamout *x)
     count = send(x->x_fd, x->x_mp3outbuf, x->x_mp3size, MSG_NOSIGNAL);
     if(count < 0)
     {
-        error("mp3streamout~: could not send encoded data to the peer (%d)", count);
+        pd_error(x, "mp3streamout~: could not send encoded data to the peer (%d)", count);
         lame_close( x->lgfp );
         x->x_lame = -1;
 #ifdef _WIN32
@@ -232,7 +232,7 @@ static void mp3streamout_stream(t_mp3streamout *x)
     }
     if((count > 0)&&(count != x->x_mp3size))
     {
-        error("mp3streamout~: %d bytes skipped", x->x_mp3size - count);
+        pd_error(x, "mp3streamout~: %d bytes skipped", x->x_mp3size - count);
     }
 }
 
@@ -366,7 +366,7 @@ static void mp3streamout_tilde_lame_init(t_mp3streamout *x)
     dll=LoadLibrary("lame_enc.dll");
     if(dll==NULL)
     {
-        error("mp3streamout~: error loading lame_enc.dll");
+        pd_error(x, "mp3streamout~: error loading lame_enc.dll");
         closesocket(x->x_fd);
         x->x_fd = -1;
         outlet_float(x->x_obj.ob_outlet, 0);
@@ -430,14 +430,14 @@ static void mp3streamout_connect(t_mp3streamout *x, t_symbol *hostname, t_floata
 
     if (x->x_fd >= 0)
     {
-        error("mp3streamout~: already connected");
+        pd_error(x, "mp3streamout~: already connected");
         return;
     }
 
     sockfd = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
     if (sockfd < 0)
     {
-        error("mp3streamout~: internal error while attempting to open socket");
+        pd_error(x, "mp3streamout~: internal error while attempting to open socket");
         return;
     }
 
@@ -463,7 +463,7 @@ static void mp3streamout_connect(t_mp3streamout *x, t_symbol *hostname, t_floata
     post("mp3streamout~: connecting to port %d", portno);
     if (connect(sockfd, (struct sockaddr *) &csocket, sizeof (csocket)) < 0)
     {
-        error("mp3streamout~: connection failed!\n");
+        pd_error(x, "mp3streamout~: connection failed!\n");
 #ifdef _WIN32
         closesocket(sockfd);
 #else
@@ -620,7 +620,7 @@ static void *mp3streamout_new(void)
     x->x_buffer = getbytes(MY_MP3_MALLOC_IN_SIZE*sizeof(short));    /* what we get from pd, converted to PCM */
     if ((!x->x_buffer)||(!x->x_mp3inbuf)||(!x->x_mp3outbuf))        /* check buffers... */
     {
-        error("out of memory!");
+        pd_error(x, "out of memory!");
     }
     x->x_bytesbuffered = 0;
     x->x_inp = 0;

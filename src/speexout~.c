@@ -178,7 +178,7 @@ static void speexout_stream(t_speexout *x)
         count = send(x->x_fd, x->x_outbuf, x->x_encsize+1, MSG_NOSIGNAL);
         if(count < 0)
         {
-            error("speexout~: could not send encoded data to the peer (%d)", count);
+            pd_error(x, "speexout~: could not send encoded data to the peer (%d)", count);
 #ifdef _WIN32
             closesocket(x->x_fd);
 #else
@@ -197,7 +197,7 @@ static void speexout_stream(t_speexout *x)
             }
             if(count != x->x_encsize+1)
             {
-                error("speexout~: %d bytes skipped", (int)(x->x_encsize - count));
+                pd_error(x, "speexout~: %d bytes skipped", (int)(x->x_encsize - count));
             }
         }
         x->x_encsize = -1;
@@ -276,7 +276,7 @@ static void speexout_tilde_speex_init(t_speexout *x)
         break;
 
     default :
-        error( "speexout~ : severe error : encoding scheme is unknown" );
+        pd_error(x, "speexout~ : severe error : encoding scheme is unknown" );
         break;
     }
 
@@ -305,14 +305,14 @@ static void speexout_connect(t_speexout *x, t_symbol *hostname, t_floatarg fport
 
     if (x->x_fd >= 0)
     {
-        error("speexout~: already connected");
+        pd_error(x, "speexout~: already connected");
         return;
     }
 
     sockfd = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
     if (sockfd < 0)
     {
-        error("speexout~: internal error while attempting to open socket");
+        pd_error(x, "speexout~: internal error while attempting to open socket");
         return;
     }
 
@@ -338,7 +338,7 @@ static void speexout_connect(t_speexout *x, t_symbol *hostname, t_floatarg fport
     post("speexout~: connecting to port %d", portno);
     if (connect(sockfd, (struct sockaddr *) &csocket, sizeof (csocket)) < 0)
     {
-        error("speexout~: connection failed!\n");
+        pd_error(x, "speexout~: connection failed!\n");
 #ifdef _WIN32
         closesocket(sockfd);
 #else
@@ -422,7 +422,7 @@ static void *speexout_new(t_symbol *s, int argc, t_atom *argv)
     x->x_outbuf = getbytes(OUT_BUFFER_SIZE);              /* our mp3 stream */
     if ((!x->x_inbuf)||(!x->x_outbuf)) /* check buffers... */
     {
-        error("speexout~ : cannot allocate buffers");
+        pd_error(x, "speexout~ : cannot allocate buffers");
         return NULL;
     }
     x->x_bytesbuffered = 0;
@@ -436,7 +436,7 @@ static void *speexout_new(t_symbol *s, int argc, t_atom *argv)
     x->x_encchunk = (t_float*)getbytes(x->x_framesize*sizeof(t_float));
     if (!x->x_encchunk) /* check allocation... */
     {
-        error("speexout~ : cannot allocate chunk");
+        pd_error(x, "speexout~ : cannot allocate chunk");
         return NULL;
     }
     return(x);

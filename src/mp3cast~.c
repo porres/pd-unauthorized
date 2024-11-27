@@ -142,7 +142,7 @@ static void mp3cast_encode(t_mp3cast *x)
     if(x->x_lamechunk < (int)sizeof(x->x_mp3inbuf))
 #endif
     {
-        error("not enough memory!");
+        pd_error(x, "not enough memory!");
         return;
     }
 
@@ -161,7 +161,8 @@ static void mp3cast_encode(t_mp3cast *x)
         }
         x->x_start = 1;
     }
-    if((unsigned short)(x->x_outp - x->x_inp) < x->x_lamechunk)error("mp3cast~: buffers overlap!");
+    if((unsigned short)(x->x_outp - x->x_inp) < x->x_lamechunk)
+        pd_error(x, "mp3cast~: buffers overlap!");
 
     i = MY_MP3_MALLOC_IN_SIZE - x->x_outp;
 
@@ -199,7 +200,7 @@ static void mp3cast_encode(t_mp3cast *x)
     if(x->x_mp3size<0)
     {
         lame_close( x->lgfp );
-        error("mp3cast~: lame_encode_buffer_interleaved failed (%d)", x->x_mp3size);
+        pd_error(x, "mp3cast~: lame_encode_buffer_interleaved failed (%d)", x->x_mp3size);
         x->x_lame = -1;
     }
 }
@@ -214,7 +215,7 @@ static void mp3cast_stream(t_mp3cast *x)
     err = send(x->x_fd, x->x_mp3outbuf, x->x_mp3size, 0);
     if(err < 0)
     {
-        error("mp3cast~: could not send encoded data to server (%d)", err);
+        pd_error(x, "mp3cast~: could not send encoded data to server (%d)", err);
         lame_close( x->lgfp );
         x->x_lame = -1;
 #ifdef _WIN32
@@ -225,7 +226,8 @@ static void mp3cast_stream(t_mp3cast *x)
         x->x_fd = -1;
         outlet_float(x->x_obj.ob_outlet, 0);
     }
-    if((err > 0)&&(err != x->x_mp3size))error("mp3cast~: %d bytes skipped", x->x_mp3size - err);
+    if((err > 0)&&(err != x->x_mp3size))
+        pd_error(x, "mp3cast~: %d bytes skipped", x->x_mp3size - err);
 }
 
 
@@ -358,7 +360,7 @@ static void mp3cast_tilde_lame_init(t_mp3cast *x)
     dll=LoadLibrary("lame_enc.dll");
     if(!dll)
     {
-        error("mp3cast~: error loading lame_enc.dll");
+        pd_error(x, "mp3cast~: error loading lame_enc.dll");
         closesocket(x->x_fd);
         x->x_fd = -1;
         outlet_float(x->x_obj.ob_outlet, 0);
@@ -469,14 +471,14 @@ static void mp3cast_connect(t_mp3cast *x, t_symbol *hostname, t_floatarg fportno
 
     if (x->x_fd >= 0)
     {
-        error("mp3cast~: already connected");
+        pd_error(x, "mp3cast~: already connected");
         return;
     }
 
     sockfd = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
     if (sockfd < 0)
     {
-        error("mp3cast~: internal error while attempting to open socket");
+        pd_error(x, "mp3cast~: internal error while attempting to open socket");
         return;
     }
 
@@ -498,7 +500,7 @@ static void mp3cast_connect(t_mp3cast *x, t_symbol *hostname, t_floatarg fportno
     post("mp3cast~: connecting to port %d", portno);
     if (connect(sockfd, (struct sockaddr *) &server, sizeof (server)) < 0)
     {
-        error("mp3cast~: connection failed!\n");
+        pd_error(x, "mp3cast~: connection failed!\n");
 #ifdef _WIN32
         closesocket(sockfd);
 #else
@@ -516,7 +518,7 @@ static void mp3cast_connect(t_mp3cast *x, t_symbol *hostname, t_floatarg fportno
     ret = select(sockfd + 1, &fdset, NULL, NULL, &tv);
     if(ret < 0)
     {
-        error("mp3cast~: can not read from socket");
+        pd_error(x, "mp3cast~: can not read from socket");
 #ifdef _WIN32
         closesocket(sockfd);
 #else
@@ -528,7 +530,7 @@ static void mp3cast_connect(t_mp3cast *x, t_symbol *hostname, t_floatarg fportno
     ret = select(sockfd + 1, NULL, &fdset, NULL, &tv);
     if(ret < 0)
     {
-        error("mp3cast~: can not write to socket");
+        pd_error(x, "mp3cast~: can not write to socket");
         close(sockfd);
         return;
     }
@@ -581,7 +583,7 @@ static void mp3cast_connect(t_mp3cast *x, t_symbol *hostname, t_floatarg fportno
         send(sockfd, buf, strlen(buf), 0);
         if(sprintf(resp, "%d", x->x_bitrate) == -1)    /* convert int to a string */
         {
-            error("mp3cast~: wrong bitrate");
+            pd_error(x, "mp3cast~: wrong bitrate");
         }
         send(sockfd, resp, strlen(resp), 0);
         buf = "\nicy-pub:";
@@ -619,7 +621,7 @@ static void mp3cast_connect(t_mp3cast *x, t_symbol *hostname, t_floatarg fportno
         send(sockfd, buf, strlen(buf), 0);
         if(sprintf(resp, "%d", x->x_bitrate) == -1)    /* convert int to a string */
         {
-            error("mp3cast~: wrong bitrate");
+            pd_error(x, "mp3cast~: wrong bitrate");
         }
         send(sockfd, resp, strlen(resp), 0);
 
@@ -713,7 +715,7 @@ static void mp3cast_connect(t_mp3cast *x, t_symbol *hostname, t_floatarg fportno
         /* bitrate */
         if(sprintf(resp, "\r\nice-audio-info: bitrate=%d", x->x_bitrate) == -1)
         {
-            error("shoutcast~: could not create audio-info");
+            pd_error(x, "shoutcast~: could not create audio-info");
         }
         send(sockfd, resp, strlen(resp), 0);
         /* description */
@@ -955,7 +957,7 @@ static void *mp3cast_new(void)
     x->x_buffer = getbytes(MY_MP3_MALLOC_IN_SIZE*sizeof(short));    /* what we get from pd, converted to PCM */
     if ((!x->x_buffer)||(!x->x_mp3inbuf)||(!x->x_mp3outbuf))        /* check buffers... */
     {
-        error("out of memory!");
+        pd_error(x, "out of memory!");
     }
     x->x_bytesbuffered = 0;
     x->x_inp = 0;

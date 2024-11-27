@@ -126,7 +126,7 @@ static void mp3write_encode(t_mp3write *x)
     if(x->x_lamechunk < (int)sizeof(x->x_mp3inbuf))
 #endif
     {
-        error("not enough memory!");
+        pd_error(x, "not enough memory!");
         return;
     }
 
@@ -145,7 +145,7 @@ static void mp3write_encode(t_mp3write *x)
         }
         x->x_start = 1;
     }
-    if((unsigned short)(x->x_outp - x->x_inp) < x->x_lamechunk)error("mp3write~: buffers overlap!");
+    if((unsigned short)(x->x_outp - x->x_inp) < x->x_lamechunk)pd_error(x, "mp3write~: buffers overlap!");
 
     i = MY_MP3_MALLOC_IN_SIZE - x->x_outp;
 
@@ -184,7 +184,7 @@ static void mp3write_encode(t_mp3write *x)
     if(x->x_mp3size<0)
     {
         lame_close( x->lgfp );
-        error("mp3write~: lame_encode_buffer_interleaved failed (%d)", x->x_mp3size);
+        pd_error(x, "mp3write~: lame_encode_buffer_interleaved failed (%d)", x->x_mp3size);
         x->x_lame = -1;
     }
 }
@@ -208,11 +208,11 @@ static void mp3write_writeframes(t_mp3write *x)
 
     if(err < 0)
     {
-        error("mp3write~: could not write encoded data to file (%d)", err);
+        pd_error(x, "mp3write~: could not write encoded data to file (%d)", err);
         lame_close( x->lgfp );
         x->x_lame = -1;
 #ifdef _WIN32
-        error("mp3write~: writing data");
+        pd_error(x, "mp3write~: writing data");
         _close(x->x_fd);
 #else
         perror("mp3write~: writing data");
@@ -225,7 +225,7 @@ static void mp3write_writeframes(t_mp3write *x)
         x->x_byteswritten += err;
         outlet_float( x->x_obj.ob_outlet, x->x_byteswritten );
     }
-    if((err > 0)&&(err != x->x_mp3size))error("mp3write~: %d bytes skipped", x->x_mp3size - err);
+    if((err > 0)&&(err != x->x_mp3size))pd_error(x, "mp3write~: %d bytes skipped", x->x_mp3size - err);
 }
 
 
@@ -360,7 +360,7 @@ static int mp3write_tilde_lame_init(t_mp3write *x)
     dll=LoadLibrary("lame_enc.dll");
     if(dll==NULL)
     {
-        error("mp3write~: error loading lame_enc.dll");
+        pd_error(x, "mp3write~: error loading lame_enc.dll");
         closesocket(x->x_fd);
         x->x_fd = -1;
         post("mp3write~: connection closed");
@@ -420,7 +420,7 @@ static void mp3write_open(t_mp3write *x, t_symbol *sfile)
 {
     if ( mp3write_tilde_lame_init(x) < 0 )
     {
-        error( "mp3write~ : lame initialization failed ... check parameters.");
+        pd_error(x,  "mp3write~ : lame initialization failed ... check parameters.");
         return;
     }
 
@@ -446,7 +446,7 @@ static void mp3write_open(t_mp3write *x, t_symbol *sfile)
 #endif
     if ( ( x->x_fd = sys_open( sfile->s_name, x->x_file_open_mode, mode) ) < 0 )
     {
-        error( "mp3write~ : cannot open >%s<", sfile->s_name);
+        pd_error(x,  "mp3write~ : cannot open >%s<", sfile->s_name);
         x->x_fd=-1;
         return;
     }
@@ -617,7 +617,7 @@ static void *mp3write_new(void)
     x->x_buffer = getbytes(MY_MP3_MALLOC_IN_SIZE*sizeof(short));    /* what we get from pd, converted to PCM */
     if ((!x->x_buffer)||(!x->x_mp3inbuf)||(!x->x_mp3outbuf))        /* check buffers... */
     {
-        error("mp3write~ : cannot allocate internal buffers");
+        pd_error(x, "mp3write~ : cannot allocate internal buffers");
         return NULL;
     }
     x->x_bytesbuffered = 0;

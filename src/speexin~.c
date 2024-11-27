@@ -195,7 +195,7 @@ void speexin_tilde_speex_init(t_speexin *x)
         break;
 
     default :
-        error( "speexin~ : severe error : decoding scheme is unknown" );
+        pd_error(x, "speexin~ : severe error : decoding scheme is unknown" );
         break;
     }
 
@@ -598,7 +598,7 @@ static void *speexin_new(t_floatarg fportno, t_floatarg fdographics)
     x->x_decchunk = (t_float*)getbytes(x->x_framesize*sizeof(t_float));
     if (!x->x_decchunk) /* check allocation... */
     {
-        error("speexin~ : cannot allocate chunk");
+        pd_error(x, "speexin~ : cannot allocate chunk");
         return NULL;
     }
 
