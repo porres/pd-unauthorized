@@ -1,8 +1,0 @@
-#N canvas 53 49 200 200 10;
-#N canvas 112 87 420 300 META 1;
-#X text 13 71 NAME unauthorized;
-#X text 10 25 AUTHOR Yves Degoyon ydegoyon@gmail.com;
-#X text 10 90 LICENSE GPLv2+;
-#X text 10 10 VERSION 0.2;
-#X text 11 50 MAINTAINER Alexandre Torres Porres porres@gmail.com;
-#X restore 10 10 pd META;

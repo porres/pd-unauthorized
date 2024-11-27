@@ -1,8 +1,9 @@
+![ives](https://github.com/user-attachments/assets/346120cc-296c-468d-9e00-530a7ebae6fe)
+
+--------------------------------------------------------------------------------
 
 unauthorized is a library of GUI objects and a handful of objects for working
-with streaming and mp3s.  The home page for the GPL version is here:
-
-http://puredata.info/community/projects/software/unauthorized
+with streaming and mp3s in Pure Data.  
 
 unauthorized has split into two versions because of a change of
 licensing. This version, maintained in the pure-data SVN, remains GPLv2
@@ -16,6 +17,34 @@ To get the new non-free version, download it from its new CVS repository:
  cvs co unauthorized
 
 original sources available from http://ydegoyon.free.fr/software.html
+      
+      The original home page for the GPL version is here:
+
+http://puredata.info/community/projects/software/unauthorized
+
+--------------------------------------------------------------------------------
+
+This repository was forked by Porres from the GPL version and lives in:
+      https://github.com/porres/pd-unauthorized
+
+The code has been adapted to use pdlibbuilder and be compiled with the 
+most recent version of Pd Vanilla and uploaded to deken.
+
+Porres was not authorized to have forked and worked on "unauthorized". 
+Therefore, we can say that this repository of "unauthorized" is unauthorized!
+
+Note from PORRES: "I want to make it very very clear that I am not the author 
+of this code, which is Yves Degoyon. I would also like to thank him for writing 
+the code. I am not stealing this code".
+
+Another note from PORRES: "This is supposed to be the same version as carried 
+by Pd-Extended, and it uses that same old license. The good thing about this 
+license is that if you end up in the top 10 chart of Pop music you can still 
+use this library of externals. The bad thing about this license is that if you 
+use it for military duties and end up building a nuclear bomb that kills us all,
+well, we're all gonna die, so it's bad (I guess?)"
+
+--------------------------------------------------------------------------------
 
 Installing
 ----------

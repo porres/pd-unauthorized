@@ -1,5 +1,3 @@
-![ives](https://github.com/user-attachments/assets/346120cc-296c-468d-9e00-530a7ebae6fe)
-
 --------------------------------------------------------------------------------
 
 unauthorized is a library of GUI objects and a handful of objects for working

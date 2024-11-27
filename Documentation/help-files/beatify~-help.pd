@@ -1,36 +1,31 @@
-#N canvas 45 57 695 405 10;
-#X obj 86 268 dac~;
-#X text 288 313 comments & bugs @ ydegoyon.free.fr;
-#X floatatom 143 104 5 -100 500;
-#X text 244 42 musiscript \, an excellent sound generation tool;
-#X text 245 53 by David Piott ( http://musicscript.sourceforge.net
-);
-#X text 243 32 The idea was borrowed from;
-#X floatatom 171 129 5 -100 500;
-#X floatatom 194 156 5 -100 500;
-#X floatatom 210 183 5 0 0;
-#X floatatom 277 211 5 -100 500;
-#X obj 233 213 / 100;
-#X obj 108 41 osc~ 400;
-#X text 268 273 Note : the default values are tuned for the osc~ input
-;
-#X text 268 286 You might need to set other values for your source
-;
-#X text 188 103 attack [ min=1.0 \, default= 10 ];
-#X text 215 128 sustain [ min=0.0 \, default=2.0 ];
-#X text 238 155 decay [ min=1.0 \, default = 50 ];
-#X text 254 182 size [ min=1.0 \, default = 700 ];
-#X text 321 210 global amplitude [ min=0.0 \, max=1.0 \, default=0.5]
-;
-#X obj 107 237 beatify~ -------------;
-#X text 244 19 Beatify~ : an audio amplitude modulator [ ADSR + loop
-size ];
-#X connect 2 0 19 1;
-#X connect 6 0 19 2;
-#X connect 7 0 19 3;
-#X connect 8 0 19 4;
-#X connect 9 0 10 0;
-#X connect 10 0 19 5;
-#X connect 11 0 19 0;
-#X connect 19 0 0 0;
-#X connect 19 0 0 1;
+#N canvas 472 68 693 466 10;
+#X declare -stdpath ./;
+#X floatatom 131 116 5 -100 500 0 - - - 0;
+#X text 244 54 musiscript \, an excellent sound generation tool;
+#X text 245 65 by David Piott ( http://musicscript.sourceforge.net );
+#X text 243 44 The idea was borrowed from;
+#X floatatom 156 141 5 -100 500 0 - - - 0;
+#X floatatom 180 168 5 -100 500 0 - - - 0;
+#X floatatom 205 195 5 0 0 0 - - - 0;
+#X floatatom 230 223 5 -100 500 0 - - - 0;
+#X obj 230 245 / 100;
+#X obj 106 68 osc~ 400;
+#X text 268 305 Note : the default values are tuned for the osc~ input;
+#X text 268 318 You might need to set other values for your source;
+#X text 176 115 attack [ min=1.0 \, default= 10 ];
+#X text 200 140 sustain [ min=0.0 \, default=2.0 ];
+#X text 224 167 decay [ min=1.0 \, default = 50 ];
+#X text 249 194 size [ min=1.0 \, default = 700 ];
+#X text 274 222 global amplitude [ min=0.0 \, max=1.0 \, default=0.5];
+#X text 244 31 Beatify~ : an audio amplitude modulator [ ADSR + loop size ];
+#X obj 108 308 output~;
+#X obj 113 394 declare -stdpath ./;
+#X obj 107 269 beatify~, f 21;
+#X connect 0 0 20 1;
+#X connect 4 0 20 2;
+#X connect 5 0 20 3;
+#X connect 6 0 20 4;
+#X connect 7 0 8 0;
+#X connect 8 0 20 5;
+#X connect 9 0 20 0;
+#X connect 20 0 18 0;
