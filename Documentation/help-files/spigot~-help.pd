@@ -1,14 +1,13 @@
-#N canvas 172 55 627 444 10;
-#X obj 151 163 dac~;
+#N canvas 520 74 422 316 10;
+#X declare -stdpath ./;
 #X obj 150 127 spigot~;
-#X text 232 50 spigot~ sends its signal to its right or left outlet
-;
-#X text 232 65 according to the state of the toggle;
-#X obj 199 101 tgl 15 0 empty empty empty 20 8 0 8 -262144 -1 -1 0
-1;
+#X text 71 19 spigot~ sends its signal to its right or left outlet;
+#X text 71 34 according to the state of the toggle;
+#X obj 199 101 tgl 15 0 empty empty empty 20 8 0 8 #fcfcfc #000000 #000000 0 1;
 #X obj 108 74 osc~ 233;
-#X text 237 148 bugs and comments @ ydegoyon@free.fr;
-#X connect 1 0 0 0;
-#X connect 1 1 0 1;
-#X connect 4 0 1 1;
-#X connect 5 0 1 0;
+#X obj 117 251 declare -stdpath ./;
+#X obj 111 172 output~;
+#X connect 0 0 6 0;
+#X connect 0 1 6 1;
+#X connect 3 0 0 1;
+#X connect 4 0 0 0;

@@ -1,15 +1,14 @@
-#N canvas 194 211 575 337 10;
-#X msg 361 263 \; pd dsp 1;
-#X floatatom 192 112 5 0 0;
-#X text 191 88 Set upper limit of random values;
-#X text 107 123 Not used;
-#X obj 121 179 print~;
-#X msg 76 156 bang;
-#X text 160 29 Generates an audio block starting at a random value
-;
-#X obj 121 143 randomblock~ 100;
-#X text 161 42 This can be used to read a table randomly.;
-#X text 161 54 This is illustrated in "mrandtab.pd".;
+#N canvas 456 200 435 290 10;
+#X msg 152 189 \; pd dsp 1;
+#X floatatom 169 119 5 0 0 0 - - - 0;
+#X text 168 95 Set upper limit of random values;
+#X text 62 128 Not used;
+#X obj 76 207 print~;
+#X msg 97 179 bang;
+#X text 64 30 Generates an audio block starting at a random value;
+#X obj 76 148 randomblock~ 100;
+#X text 65 43 This can be used to read a table randomly.;
+#X text 65 55 This is illustrated in "mrandtab.pd".;
 #X connect 1 0 7 1;
 #X connect 5 0 4 0;
 #X connect 7 0 4 0;
