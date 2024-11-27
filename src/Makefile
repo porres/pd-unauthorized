@@ -36,7 +36,7 @@ spigot~.class.sources := spigot~.c
 vocoder~.class.sources := vocoder~.c
 wahwah~.class.sources := wahwah~.c
 
-#speexin~.class.sources := speexin~.c
+speexin~.class.sources := speexin~.c
 #speexout~.class.sources := speexout~.c
 #mp3cast~.class.sources := mp3cast~.c
 
