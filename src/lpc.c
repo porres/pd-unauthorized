@@ -17,8 +17,8 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 */
 
-#include "tables.h"
-#include "lpc.h"
+#include "vocoder~/tables.h"
+#include "vocoder~/lpc.h"
 #define THRES 0.06
 #define Dmin 10.81e-3
 

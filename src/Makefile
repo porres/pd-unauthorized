@@ -34,6 +34,12 @@ spigot~.class.sources := spigot~.c
 vocoder~.class.sources := vocoder~.c
 wahwah~.class.sources := wahwah~.c
 
+voc := \
+filters.c \
+tables.c \
+lpc.c
+	vocoder~.class.sources := vocoder~.c $(voc)
+
 #speexout~.class.sources := speexout~.c
 #pianoroll.class.sources := pianoroll.c
 #grid.class.sources := grid.c
