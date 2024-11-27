@@ -22,7 +22,9 @@ exciter.class.sources := exciter.c
 filterbank~.class.sources := filterbank~.c
 filters.class.sources := filters.c
 formant~.class.sources := formant~.c
+grid.class.sources := grid.c
 mp3amp~.class.sources := mp3amp~.c
+pianoroll.class.sources := pianoroll.c
 playlist.class.sources := playlist.c
 probalizer.class.sources := probalizer.c
 randomblock~.class.sources := randomblock~.c
@@ -34,7 +36,9 @@ spigot~.class.sources := spigot~.c
 vocoder~.class.sources := vocoder~.c
 wahwah~.class.sources := wahwah~.c
 
-grid.class.sources := grid.c
+#speexin~.class.sources := speexin~.c
+#speexout~.class.sources := speexout~.c
+#mp3cast~.class.sources := mp3cast~.c
 
 voc := \
 filters.c \
@@ -42,10 +46,6 @@ tables.c \
 lpc.c
 	vocoder~.class.sources := vocoder~.c $(voc)
 
-#speexout~.class.sources := speexout~.c
-#pianoroll.class.sources := pianoroll.c
-#mp3cast~.class.sources := mp3cast~.c
-#speexout~.c
 
 
 
