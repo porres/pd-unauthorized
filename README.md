@@ -1,3 +1,4 @@
+![ives](https://github.com/user-attachments/assets/346120cc-296c-468d-9e00-530a7ebae6fe)
 
 unauthorized is a library of GUI objects and a handful of objects for working
 with streaming and mp3s.  The home page for the GPL version is here:
@@ -6,7 +7,11 @@ http://puredata.info/community/projects/software/unauthorized
 
 -------------------------------------------------------------------------------------
 
-This repository was forked by Porres and extracted from the Purr Data repository. It has been adapted to use pdlibbuilder and be compiled with the most recent version of Pd Vanilla.
+This repository was forked by Porres and extracted from the Purr Data repository. This repository lives in https://github.com/porres/pd-unauthorized
+
+The code has been adapted to use pdlibbuilder and be compiled with the most recent version of Pd Vanilla and uploaded to deken.
+
+Porres was not authorized to have forked and worked on "unauthorized". Therefore, we can say that this repository of "unauthorized" is unauthorized!
 
 Note from PORRES: "I want to make it very very clear that I am not the author of this code, which is Yves Degoyon. I would also like to thank him for writing the code. I am not stealing this code".
 
