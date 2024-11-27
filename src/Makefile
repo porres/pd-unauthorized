@@ -34,6 +34,8 @@ spigot~.class.sources := spigot~.c
 vocoder~.class.sources := vocoder~.c
 wahwah~.class.sources := wahwah~.c
 
+grid.class.sources := grid.c
+
 voc := \
 filters.c \
 tables.c \
@@ -42,7 +44,6 @@ lpc.c
 
 #speexout~.class.sources := speexout~.c
 #pianoroll.class.sources := pianoroll.c
-#grid.class.sources := grid.c
 #mp3cast~.class.sources := mp3cast~.c
 #speexout~.c
 
