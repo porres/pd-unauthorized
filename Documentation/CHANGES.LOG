@@ -1,6 +1,5 @@
 0.2
-   - Porres not being authorized to work on unauthorized, starts working on it
    - changes to build with pdlibbuilder with the latest vanilla
-   - documentation changes
+   - minor documentation changes
 0.1
-   - First implementation by the great yves, as distributed in Pd-Extended
+   - Original version as distributed in Pd-Extended
