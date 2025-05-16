@@ -1,4 +1,4 @@
-#N canvas 422 152 817 563 10;
+#N canvas 294 94 817 563 10;
 #X text 28 57 Constructor : playlist <extension> <width> <height>;
 #X text 88 95 playlist all 200 200;
 #X text 88 107 playlist mp3 200 200;

@@ -1,4 +1,4 @@
-#N canvas 430 117 807 670 10;
+#N canvas 258 56 807 670 10;
 #X text 410 216 (invoke with <right mouse>Properties );
 #X text 411 205 You can set the following properties :;
 #X text 431 237 * Width : graphical x size;

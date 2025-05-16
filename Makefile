@@ -1,15 +1,28 @@
-
 lib.name = unauthorized
 
-export CPPFLAGS="-I/opt/homebrew/include"
+# Include paths
+export CPPFLAGS = -I/opt/homebrew/include
 
 # for the MINGW which has the timespec struct defined twice
 cflags = -Ishared -DHAVE_STRUCT_TIMESPEC
 
-LDFLAGS += -lspeex -L/opt/homebrew/lib -undefined dynamic_lookup
+# For macOS, we need to use specific flags for static linking
+ifeq ($(shell uname -s), Darwin)
+    # Use full path to static libraries for mp3 objects
+    mp3cast~.class.ldlibs = /opt/homebrew/lib/libmp3lame.a -lpthread -lm
+    mp3fileout~.class.ldlibs = /opt/homebrew/lib/libmp3lame.a -lpthread -lm
+    mp3streamout~.class.ldlibs = /opt/homebrew/lib/libmp3lame.a -lpthread -lm
+    mp3write~.class.ldlibs = /opt/homebrew/lib/libmp3lame.a -lpthread -lm
+
+    # Add specific darwin linking flags
+    ldflags = -undefined dynamic_lookup
+endif
+
+LDFLAGS += -lspeex -L/opt/homebrew/lib
 
 #######################################################################
 
+# All your existing source definitions remain the same
 audience~.class.sources := src/audience~.c
 beatify~.class.sources := src/beatify~.c
 blinkenlights.class.sources := src/blinkenlights.c
@@ -47,13 +60,7 @@ voc := \
 src/filters.c \
 src/tables.c \
 src/lpc.c
-	vocoder~.class.sources := src/vocoder~.c $(voc)
-
-# datafiles = \
-$(wildcard documentation/help_files/*.pd) \
-$(wildcard documentation/extra_files/*.*) \
-LICENSE.txt \
-README.pdf \
+    vocoder~.class.sources := src/vocoder~.c $(voc)
 
 PDLIBBUILDER_DIR=pd-lib-builder/
 include $(PDLIBBUILDER_DIR)/Makefile.pdlibbuilder

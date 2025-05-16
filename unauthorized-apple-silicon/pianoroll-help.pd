@@ -1,4 +1,4 @@
-#N canvas 313 58 935 612 10;
+#N canvas 208 66 935 612 10;
 #X floatatom 150 519 5 0 0 0 - - - 0;
 #X floatatom 544 520 5 0 0 0 - - - 0;
 #X text 547 183 (invoke with <right mouse>Properties );
