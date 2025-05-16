@@ -33,10 +33,7 @@
 #include <m_pd.h>
 #include <m_imp.h>
 #include <g_canvas.h>
-
-#if PD_MINOR_VERSION >=37
-#include "s_stuff.h"
-#endif
+#include <s_stuff.h>
 
 #include <sys/types.h>
 #include <string.h>
@@ -83,7 +80,7 @@ static struct timeval ztout;
 
 static char   *mp3streamin_version = "mp3streamin~: mp3 peer-to-peer streamer version 0.3, written by ydegoyon@free.fr";
 
-extern void sys_sockerror(char *s);
+// extern void sys_sockerror(char *s);
 
 void mp3streamin_closesocket(int fd)
 {

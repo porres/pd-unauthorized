@@ -12,6 +12,7 @@ ifeq ($(shell uname -s), Darwin)
     mp3cast~.class.ldlibs = /opt/homebrew/lib/libmp3lame.a -lpthread -lm
     mp3fileout~.class.ldlibs = /opt/homebrew/lib/libmp3lame.a -lpthread -lm
     mp3streamout~.class.ldlibs = /opt/homebrew/lib/libmp3lame.a -lpthread -lm
+    mp3streamin~.class.ldlibs = /opt/homebrew/lib/libmp3lame.a -lpthread -lm
     mp3write~.class.ldlibs = /opt/homebrew/lib/libmp3lame.a -lpthread -lm
 
     # Add specific darwin linking flags
@@ -51,6 +52,7 @@ wahwah~.class.sources := src/wahwah~.c
 # classes with homebrew dependencies
 mp3cast~.class.sources := src/mp3cast~.c
 mp3fileout~.class.sources := src/mp3fileout~.c
+mp3streamin~.class.sources := src/mp3streamin~.c
 mp3streamout~.class.sources := src/mp3streamout~.c
 mp3write~.class.sources := src/mp3write~.c
 speexin~.class.sources := src/speexin~.c
