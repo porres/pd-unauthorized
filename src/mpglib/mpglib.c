@@ -12,7 +12,7 @@
 */
 #include "m_pd.h"
 #include "m_imp.h"
-#include "sigmp3play.h"
+#include "mpglib.h"
 #include <ctype.h>
 #include <stdlib.h>
 #include <stdio.h>

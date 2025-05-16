@@ -4,7 +4,8 @@ lib.name = unauthorized
 export CPPFLAGS = -I/opt/homebrew/include
 
 # for the MINGW which has the timespec struct defined twice
-cflags = -Ishared -DHAVE_STRUCT_TIMESPEC
+#cflags = -Ishared -DHAVE_STRUCT_TIMESPEC
+cflags = -Ishared -DHAVE_STRUCT_TIMESPEC -I"$(CURDIR)/src/mpglib"
 
 # For macOS, we need to use specific flags for static linking
 ifeq ($(shell uname -s), Darwin)
@@ -36,7 +37,8 @@ filterbank~.class.sources := src/filterbank~.c
 filters.class.sources := src/filters.c
 formant~.class.sources := src/formant~.c
 grid.class.sources := src/grid.c
-mp3amp~.class.sources := src/mp3amp~.c
+#mp3amp~.class.sources := src/mp3amp~.c
+mp3amp~.class.sources := src/mp3amp~.c src/mpglib/mpglib.c
 pianoroll.class.sources := src/pianoroll.c
 playlist.class.sources := src/playlist.c
 probalizer.class.sources := src/probalizer.c

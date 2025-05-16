@@ -192,6 +192,31 @@ static void mp3amp_recv(t_mp3amp *x);
 static void mp3amp_disconnect(t_mp3amp *x);
 static void mp3amp_connect_url(t_mp3amp *x, t_symbol *url);
 
+/* Header check for MPEG-Audio-Format */
+int head_check(unsigned long head, int check_layer)
+{
+    /* first 11 bits are set to 1 for frame sync */
+    if ((head & 0xffe00000) != 0xffe00000) {  // Check frame sync - first 11 bits must be 1
+        return 0;
+    }
+
+    /* layer check */
+    if (check_layer && ((head>>17)&3) == 0) {  // Layer check (Layer I,II,III = '01','10','11', '00' invalid)
+        return 0;
+    }
+
+    /* bit rate */
+    if (((head>>12)&0xf) == 0xf) {  // Check if bitrate index is valid (0xf = 1111 is invalid)
+        return 0;
+    }
+
+    /* frequency */
+    if (((head>>10)&0x3) == 0x3) {  // Check if sampling rate is valid (0x3 = 11 is reserved)
+        return 0;
+    }
+    return 1;  // If all checks pass, it's a valid header
+}
+
 static int strip_shout_header(char *head, int n)
 {
     int i;
