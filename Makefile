@@ -15,12 +15,17 @@ ifeq ($(shell uname -s), Darwin)
     mp3streamout~.class.ldlibs = /opt/homebrew/lib/libmp3lame.a -lpthread -lm
     mp3streamin~.class.ldlibs = /opt/homebrew/lib/libmp3lame.a -lpthread -lm
     mp3write~.class.ldlibs = /opt/homebrew/lib/libmp3lame.a -lpthread -lm
+    
+    # Add Speex static library for speex objects
+    speexin~.class.ldlibs = /opt/homebrew/lib/libspeex.a -lpthread -lm
+    speexout~.class.ldlibs = /opt/homebrew/lib/libspeex.a -lpthread -lm
 
     # Add specific darwin linking flags
     ldflags = -undefined dynamic_lookup
 endif
 
-LDFLAGS += -lspeex -L/opt/homebrew/lib
+# Remove this line since we're now using static linking for Speex
+# LDFLAGS += -lspeex -L/opt/homebrew/lib
 
 #######################################################################
 
